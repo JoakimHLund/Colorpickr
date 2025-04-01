@@ -3,30 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Color Wheel Guess</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    #colorDisplay {
-      font-size: 20px;
-      margin: 10px 0;
-    }
-    canvas {
-      cursor: crosshair;
-      margin: 20px auto;
-      display: block;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <button onclick="generateColor()">Generate Color</button>
-  <div id="colorDisplay">Hex: -</div>
-  <canvas id="colorWheel" width="300" height="300"></canvas>
-  <button onclick="checkGuess()">Guess</button>
-  <div id="result"></div>
-
+  <div class="container">
+    <h1>🎨 Color Wheel Guess</h1>
+    <button onclick="generateColor()">Generate Color</button>
+    <div id="colorDisplay">Hex: -</div>
+    <canvas id="colorWheel" width="300" height="300"></canvas>
+    <button onclick="checkGuess()">Guess</button>
+    <div id="result"></div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>

@@ -6,6 +6,7 @@ const colorDisplay = document.getElementById("colorDisplay");
 const radius = canvas.width / 2;
 let generatedColor = null;
 let guessedColor = null;
+let showAnswer = false;
 
 function drawColorWheel() {
   const image = ctx.createImageData(canvas.width, canvas.height);
@@ -51,6 +52,8 @@ function generateColor() {
   const s = Math.random();
   const l = 0.5;
   generatedColor = { h, s, l };
+  guessedColor = null;
+  showAnswer = false;
   const hex = rgbToHex(...hslToRgb(h, s, l));
   colorDisplay.textContent = `Hex: ${hex}`;
   resultDiv.textContent = "";
@@ -65,12 +68,12 @@ function checkGuess() {
 
   const diff = colorDistance(generatedColor, guessedColor);
   resultDiv.textContent = `You were ${diff.toFixed(2)}% away.`;
+  showAnswer = true;
   redraw();
 }
 
 function colorDistance(c1, c2) {
-  // Basic Euclidean distance in HSL space
-  const dh = Math.min(Math.abs(c1.h - c2.h), 360 - Math.abs(c1.h - c2.h)) / 180; // normalized
+  const dh = Math.min(Math.abs(c1.h - c2.h), 360 - Math.abs(c1.h - c2.h)) / 180;
   const ds = c1.s - c2.s;
   const dl = c1.l - c2.l;
   return Math.sqrt(dh * dh + ds * ds + dl * dl) * 100;
@@ -79,7 +82,7 @@ function colorDistance(c1, c2) {
 function redraw() {
   drawColorWheel();
   if (guessedColor) drawMarker(guessedColor, "black");
-  if (generatedColor) drawMarker(generatedColor, "white");
+  if (generatedColor && showAnswer) drawMarker(generatedColor, "white");
 }
 
 canvas.addEventListener("click", (e) => {
